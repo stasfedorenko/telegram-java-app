@@ -11,7 +11,7 @@ import com.itextpdf.text.pdf.*;
 
 
 public class PdfAppIText {
-    public void execute() {
+    public void execute(String basePath) {
         Document document = new Document();
         Table table = new Table();
 
@@ -21,10 +21,10 @@ public class PdfAppIText {
 
         try {
 //            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:\\IdeaProjects\\telegram-java-app\\src\\main\\resources\\docs\\welcome.pdf"));
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/opt/tomcat/conf/docs/welcome.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(basePath + "welcome.pdf"));
 
             document.open();
-            document.add(new Paragraph("Hi, we are Yellow command.\nNice to meet you!\n"+dateResult));
+            document.add(new Paragraph("Hi, we are Yellow command.\nNice to meet you!\n" + dateResult));
             table.createTable();
             document.add(new Paragraph("\n"));
             document.add(table.getTable());

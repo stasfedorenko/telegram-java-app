@@ -14,9 +14,6 @@ public class TestBot extends DefaultAbsSender {
     private final String BOT_TOKEN = "5126244951:AAGGgW4_aHBDJBHsjegm8ppMl8pZOFFC9Yg";
     private final String CHAT_ID = "798726464";
 
-//    private final String PATH = "D:\\IdeaProjects\\telegram-java-app\\src\\main\\resources\\docs\\welcome.pdf";
-    private final String PATH = "/opt/tomcat/conf/docs/welcome.pdf";
-
 
     public TestBot(DefaultBotOptions options) {
         super(options);
@@ -27,8 +24,10 @@ public class TestBot extends DefaultAbsSender {
         return BOT_TOKEN;
     }
 
-    public void execute() throws TelegramApiException {
+    public void execute(String basePath) throws TelegramApiException {
         this.execute(SendMessage.builder().chatId(this.CHAT_ID).text("Hello everybody!").build());
+        //    private final String PATH = "D:\\IdeaProjects\\telegram-java-app\\src\\main\\resources\\docs\\welcome.pdf";
+        String PATH = basePath + "welcome.pdf";
         this.execute(SendDocument.builder().chatId(this.CHAT_ID).document(new InputFile(new File(PATH))).build());
     }
 
