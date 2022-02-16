@@ -1,7 +1,6 @@
 
 import by.stasfedorenko.parser.PdfAppIText;
 import by.stasfedorenko.TestBot;
-import by.stasfedorenko.parser.PdfAppPdfBox;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -14,8 +13,7 @@ public class Main {
 
         TestBot bot = new TestBot(new DefaultBotOptions());
         PdfAppIText pdfAppIText = new PdfAppIText();
-//        PdfAppPdfBox pdfAppPdfBox = new PdfAppPdfBox();
-//        pdfAppPdfBox.execute();
+
         pdfAppIText.execute();
         bot.execute();
 

@@ -1,10 +1,10 @@
 package by.stasfedorenko.parser;
 
 import org.json.JSONArray;
-
 import java.util.*;
 
-public class JSONtoMap {
+
+public class    JSONtoMap {
 
     public static Map<String[], String[]> execute(String someJsonString) {
         JSONArray jsonArray = new JSONArray(someJsonString);
@@ -21,11 +21,11 @@ public class JSONtoMap {
         for (JSONArray objects : jsonArrayList) {
             listKeys = new String[2];
             listValues = new String[3];
-            if (!objects.getJSONObject(0).isEmpty()) {
+            if (objects.getJSONObject(0).length()>0) {
                 listKeys[0] = objects.getJSONObject(0).getString("firstName");
-                listKeys[1] = objects.getJSONObject(0).getString("secondName");
+                listKeys[1] = objects.getJSONObject(0).getString("lastName");
             }
-            if (!objects.getJSONArray(1).isEmpty()) {
+            if (objects.getJSONArray(1).length()>0) {
                 listValues[0] = objects.getJSONArray(1)
                         .getJSONObject(0).getString("reportTitle");
                 listValues[1] = objects.getJSONArray(1)

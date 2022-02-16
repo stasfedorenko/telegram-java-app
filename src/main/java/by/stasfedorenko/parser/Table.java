@@ -5,6 +5,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -13,7 +14,7 @@ public class Table {
     private static final String[] HEADERS_NAMES = new String[]{"fullName", "reportTitle", "reportBody", "laborCost"};
     private static final int NUMS_COLUMNS = HEADERS_NAMES.length;
 
-    public void createTable() {
+    public void createTable() throws IOException {
         Map<String[], String[]> map = JSONtoMap.execute(JSON.getJSON());
         table = new PdfPTable(NUMS_COLUMNS);
         createHeader();

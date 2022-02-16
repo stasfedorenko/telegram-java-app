@@ -53,18 +53,44 @@
       <version>5.5.13.2</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/javax.activation/activation -->
     <dependency>
       <groupId>javax.activation</groupId>
       <artifactId>activation</artifactId>
       <version>1.1.1</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.subethamail/subethasmtp -->
     <dependency>
       <groupId>org.subethamail</groupId>
       <artifactId>subethasmtp</artifactId>
       <version>3.1.7</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20211205</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk15on</artifactId>
+      <version>1.69</version>
+    </dependency>
+
 
     <dependency>
       <groupId>com.vaadin.external.google</groupId>

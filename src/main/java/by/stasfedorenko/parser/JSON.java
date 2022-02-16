@@ -1,63 +1,160 @@
 package by.stasfedorenko.parser;
 
 
-public class JSON {
+import org.json.JSONException;
+import org.json.JSONObject;
+import sun.net.www.http.HttpClient;
 
-    public static String getJSON() {
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
+public class JSON {
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
+    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+        try (InputStream is = new URL(url).openStream()) {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+            String jsonText = readAll(rd);
+            return new JSONObject(jsonText);
+        }
+    }
+
+    public static String getJSON() throws IOException {
+        String json = JSON.readJsonFromUrl("https://graph.facebook.com/19292868552").toString();
+
+        System.out.println(json);
+//        return json;
         return "[\n" +
                 "    [\n" +
                 "        {\n" +
-                "            \"firstName\": \"John\",\n" +
-                "            \"secondName\": \"Michael\",\n" +
-                "            \"lastName\": \"Osbourne\"\n" +
-                "        },\n" +
-                "        []\n" +
-                "    ],\n" +
-                "    [\n" +
-                "        {\n" +
-                "            \"firstName\": \"Doge\",\n" +
-                "            \"secondName\": \"Ilon\",\n" +
-                "            \"lastName\": \"Musk\"\n" +
+                "            \"firstName\": \"Nadya\",\n" +
+                "            \"lastName\": \"Shokel\"\n" +
                 "        },\n" +
                 "        [\n" +
                 "            {\n" +
-                "                \"reportTitle\": \"PostgreSQL Try On24\",\n" +
-                "                \"reportBody\": \"Created Database Table, now testing it Join for Doge\",\n" +
+                "                \"reportTitle\": \"Tomcat Setting up\",\n" +
+                "                \"reportBody\": \"GCP tomcat installing; Setting Up. Testing Connection; Testing IP address\\r\\n\",\n" +
+                "                \"laborCost\": 3\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Team Lead Job\",\n" +
+                "                \"reportBody\": \"Setting up team task; Manage team work; Ensure team labor time;\",\n" +
+                "                \"laborCost\": 2\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Microservice Architecture Task\",\n" +
+                "                \"reportBody\": \"Development of microservice architecture; Creating application development structure\",\n" +
+                "                \"laborCost\": 1\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    ],\n" +
+                "    [\n" +
+                "        {\n" +
+                "            \"firstName\": \"Maxim\",\n" +
+                "            \"lastName\": \"Ananiev\"\n" +
+                "        },\n" +
+                "        [\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Java Email Apllication\",\n" +
+                "                \"reportBody\": \"Setting up javax.mail; Creating plain java mail app\",\n" +
+                "                \"laborCost\": 2\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Installing Java Mail App on GCP\",\n" +
+                "                \"reportBody\": \"Testing Java Mail App; Installation it on GCP tomcat; testing\",\n" +
                 "                \"laborCost\": 3\n" +
                 "            }\n" +
                 "        ]\n" +
                 "    ],\n" +
                 "    [\n" +
                 "        {\n" +
-                "            \"firstName\": \"Sid\",\n" +
-                "            \"secondName\": \"J\",\n" +
-                "            \"lastName\": \"Wilson\"\n" +
+                "            \"firstName\": \"Yaroslav\",\n" +
+                "            \"lastName\": \"Detskiy\"\n" +
+                "        },\n" +
+                "        [\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Creating Json parser\",\n" +
+                "                \"reportBody\": \"Creating Json Parser; Testing it;\",\n" +
+                "                \"laborCost\": 3\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Setting up Jenkins on GCP\",\n" +
+                "                \"reportBody\": \"Jenkins Setting up;\",\n" +
+                "                \"laborCost\": 2\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    ],\n" +
+                "    [\n" +
+                "        {\n" +
+                "            \"firstName\": \"Alexey\",\n" +
+                "            \"lastName\": \"Bakulin\"\n" +
                 "        },\n" +
                 "        []\n" +
                 "    ],\n" +
                 "    [\n" +
                 "        {\n" +
-                "            \"firstName\": \"Michael\",\n" +
-                "            \"secondName\": \"Shawn\",\n" +
-                "            \"lastName\": \"Crahan\"\n" +
+                "            \"firstName\": \"Oleg\",\n" +
+                "            \"lastName\": \"Akulov\"\n" +
                 "        },\n" +
-                "        []\n" +
+                "        [\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"GCP Installation\",\n" +
+                "                \"reportBody\": \"Creating Virtual Machines; Uploading Postres, Tomcat; Testing IP for avaliable in Internet;\",\n" +
+                "                \"laborCost\": 4\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Setting Up Jenkins on GCP\",\n" +
+                "                \"reportBody\": \"Created Jobs for auto deploy; Created Jobs for automatical start of Telegram java app and Mail Java App\",\n" +
+                "                \"laborCost\": 3\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Setting Up Tomcat\",\n" +
+                "                \"reportBody\": \"Configure Tomcat server on GCP. Installing JVM\",\n" +
+                "                \"laborCost\": 2\n" +
+                "            }\n" +
+                "        ]\n" +
                 "    ],\n" +
                 "    [\n" +
                 "        {\n" +
-                "            \"firstName\": \"Adam\",\n" +
-                "            \"secondName\": \"John\",\n" +
-                "            \"lastName\": \"Gontier\"\n" +
+                "            \"firstName\": \"Oleg\",\n" +
+                "            \"lastName\": \"Dumava\"\n" +
                 "        },\n" +
-                "        []\n" +
+                "        [\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"PDF Java Application\",\n" +
+                "                \"reportBody\": \"Creating PDF Json parser; Testing it;\",\n" +
+                "                \"laborCost\": 2\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Setting up Tomcat on GCP\",\n" +
+                "                \"reportBody\": \"Setting up Tomcat, and configure it;\",\n" +
+                "                \"laborCost\": 2\n" +
+                "            }\n" +
+                "        ]\n" +
                 "    ],\n" +
                 "    [\n" +
                 "        {\n" +
-                "            \"firstName\": \"Harrison\",\n" +
-                "            \"secondName\": \"James\",\n" +
-                "            \"lastName\": \"Ford\"\n" +
+                "            \"firstName\": \"Stanislav\",\n" +
+                "            \"lastName\": \"Fedorenko\"\n" +
                 "        },\n" +
-                "        []\n" +
+                "        [\n" +
+                "            {\n" +
+                "                \"reportTitle\": \"Telegram Java Application Task\",\n" +
+                "                \"reportBody\": \"Setting up Telegram api; Creating Plain Java app for Telegram; Testing;\",\n" +
+                "                \"laborCost\": 3\n" +
+                "            }\n" +
+                "        ]\n" +
                 "    ]\n" +
                 "]";
     }
