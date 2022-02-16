@@ -16,8 +16,8 @@ public class TestBot extends DefaultAbsSender {
     private final String BOT_TOKEN = "5126244951:AAGGgW4_aHBDJBHsjegm8ppMl8pZOFFC9Yg";
     private final String CHAT_ID = "798726464";
 
-    private final String PATH = "D:\\IdeaProjects\\telegram-java-app\\src\\main\\resources\\docs\\welcome.pdf";
-    private final String PATH2 = "welcome.pdf";
+//    private final String PATH = "D:\\IdeaProjects\\telegram-java-app\\src\\main\\resources\\docs\\welcome.pdf";
+    private final String PATH = "/opt/tomcat/conf/docs/welcome.pdf";
 
 
     public TestBot(DefaultBotOptions options) {

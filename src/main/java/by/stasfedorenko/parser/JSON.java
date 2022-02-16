@@ -3,13 +3,9 @@ package by.stasfedorenko.parser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import sun.net.www.http.HttpClient;
 
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public class JSON {
@@ -31,9 +27,10 @@ public class JSON {
     }
 
     public static String getJSON() throws IOException {
-        String json = JSON.readJsonFromUrl("https://graph.facebook.com/19292868552").toString();
-
-        System.out.println(json);
+//        String json = JSON.readJsonFromUrl("https://graph.facebook.com/19292868552").toString();
+//
+//        System.out.println(json);
+//        System.out.println();
 //        return json;
         return "[\n" +
                 "    [\n" +
