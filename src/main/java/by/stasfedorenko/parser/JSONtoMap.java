@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import java.util.*;
 
 
-public class    JSONtoMap {
+public class JSONtoMap {
 
     public static Map<String[], String[]> execute(String someJsonString) {
         JSONArray jsonArray = new JSONArray(someJsonString);

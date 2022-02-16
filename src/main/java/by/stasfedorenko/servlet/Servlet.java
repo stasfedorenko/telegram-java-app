@@ -9,13 +9,10 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-
 
 public class Servlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
             processRequest();
         } catch (TelegramApiException | DocumentException e) {
@@ -23,20 +20,9 @@ public class Servlet extends HttpServlet {
         }
     }
 
-    private void processRequest() throws IOException, TelegramApiException, DocumentException {
-//
-//        String fileName = "welcome.pdf";
-//        String path = getServletContext().getInitParameter("uploadFilesPath");
-//        File file = new File(path + File.separator + fileName);
-//
-
-
-
-
+    private void processRequest() throws TelegramApiException, DocumentException {
         TestBot bot = new TestBot(new DefaultBotOptions());
         PdfAppIText pdfAppIText = new PdfAppIText();
-//        PdfAppPdfBox pdfAppPdfBox = new PdfAppPdfBox();
-//        pdfAppPdfBox.execute();
         pdfAppIText.execute();
         bot.execute();
     }
