@@ -12,7 +12,8 @@ import java.io.File;
 public class TestBot extends DefaultAbsSender {
 
     private final String BOT_TOKEN = "5126244951:AAGGgW4_aHBDJBHsjegm8ppMl8pZOFFC9Yg";
-    private final String CHAT_ID = "798726464";
+//    private final String CHAT_ID = "798726464";
+    private final String CHAT_ID = "1824733308";
 
 
     public TestBot(DefaultBotOptions options) {
