@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws TelegramApiException{
         System.out.println("Hello");
-        String basePath = "D:\\\\IdeaProjects\\\\telegram-java-app\\\\src\\\\main\\\\resources\\\\docs\\\\";
+        String basePath = "D:\\IdeaProjects\\telegram-java-app\\src\\main\\resources\\docs\\";
 
         TestBot bot = new TestBot(new DefaultBotOptions());
         PdfAppIText pdfAppIText = new PdfAppIText();
