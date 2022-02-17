@@ -21,7 +21,7 @@ public class PdfAppIText {
         try {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(basePath + "welcome.pdf"));
             document.open();
-            document.add(new Paragraph("Hi, we are Yellow command.\nNice to meet you!\n" + dateResult));
+            document.add(new Paragraph("Hi, we are Yellow command.\nNice to meet you!\n"));
             table.createTable();
             document.add(new Paragraph("\n"));
             document.add(table.getTable());
