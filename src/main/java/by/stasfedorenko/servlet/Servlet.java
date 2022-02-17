@@ -1,15 +1,15 @@
 package by.stasfedorenko.servlet;
 
-import by.stasfedorenko.TestBot;
+import by.stasfedorenko.bots.MyBot;
 import by.stasfedorenko.parser.PdfAppIText;
-import com.itextpdf.text.DocumentException;
-import org.telegram.telegrambots.bots.DefaultBotOptions;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 
 public class Servlet extends HttpServlet {
 
@@ -17,7 +17,15 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         String basePath = req.getServletContext().getRealPath("/");
-        TestBot bot = new TestBot(new DefaultBotOptions());
+
+        MyBot bot = new MyBot();
+        try {
+            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+            telegramBotsApi.registerBot(bot);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
         PdfAppIText pdfAppIText = new PdfAppIText();
         pdfAppIText.execute(basePath);
         try {
