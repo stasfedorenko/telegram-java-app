@@ -11,7 +11,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.io.File;
 
 public class MyBot extends TelegramLongPollingBot {
-    private static final String CHAT_ID = "313204287";
+    private static final String CHAT_ID = "798726464";
+//    private static final String CHAT_ID = "313204287"; // Yra telega chat_id
+
 
     @Override
     public String getBotUsername() {
