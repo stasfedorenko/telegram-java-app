@@ -9,7 +9,6 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileNotFoundException;
 
 public class Servlet extends HttpServlet {
 
