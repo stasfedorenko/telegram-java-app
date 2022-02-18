@@ -14,7 +14,6 @@ public class MyBot extends TelegramLongPollingBot {
     private static final String CHAT_ID = "798726464";
 //    private static final String CHAT_ID = "313204287"; // Yra telega chat_id
 
-
     @Override
     public String getBotUsername() {
         return "@yellow_command_reports_bot";
@@ -43,7 +42,7 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     public void execute(String basePath) throws TelegramApiException {
-        String PATH = basePath + "welcome.pdf";
+        String PATH = basePath + "reports.pdf";
         this.execute(SendMessage.builder().chatId(CHAT_ID).text("Hi, this is our reports list").build());
         this.execute(SendDocument.builder().chatId(CHAT_ID).document(new InputFile(new File(PATH))).build());
     }
