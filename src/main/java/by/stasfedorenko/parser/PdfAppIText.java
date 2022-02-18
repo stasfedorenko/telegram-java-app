@@ -15,12 +15,12 @@ public class PdfAppIText {
 
         try {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(basePath + "reports.pdf"));
-//            Image logo = Image.getInstance(basePath +"logo.png");
+            Image logo = Image.getInstance(basePath +"logo.png");
             document.open();
             document.add(new Paragraph("Hi, we are Yellow command.\nThis are reports about our workday!\n\n",DOCUMENT_TITLE_FONT));
             table.createTable();
             document.add(table.getTable());
-//            document.add(logo);
+            document.add(logo);
             document.close();
             writer.close();
         } catch (DocumentException | IOException e) {
