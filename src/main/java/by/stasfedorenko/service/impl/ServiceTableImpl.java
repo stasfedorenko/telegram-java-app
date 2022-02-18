@@ -1,5 +1,7 @@
-package by.stasfedorenko.parser;
+package by.stasfedorenko.service.impl;
 
+import by.stasfedorenko.service.ServiceTable;
+import by.stasfedorenko.util.ParserJSON;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Phrase;
@@ -13,20 +15,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class Table {
+public class ServiceTableImpl implements ServiceTable {
     private PdfPTable table;
     private static final String[] HEADERS_NAMES = new String[]{"NAME", "REPORT TITLE", "REPORT", "LABOR COST"};
     private static final int NUMS_COLUMNS = HEADERS_NAMES.length;
     private static final Font HEADER_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
     private static final Font COLS_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 14);
 
+    @Override
     public void createTable() throws IOException {
-        Map<String[], String[]> map = JSONtoMap.execute(JSON.getJSON());
+        Map<String[], String[]> map = ParserJSON.execute();
         table = new PdfPTable(NUMS_COLUMNS);
         createHeader();
         createBody(map);
+        table.setWidthPercentage(100);
     }
 
+    @Override
+    public PdfPTable getTable() {
+        return this.table;
+    }
+
+    @Override
     public void createHeader() {
         Stream.of(HEADERS_NAMES)
                 .forEach(columnTitle -> {
@@ -41,6 +51,7 @@ public class Table {
                 });
     }
 
+    @Override
     public void createBody(Map<String[], String[]> map) {
         Collection<String[]> keys = map.keySet();
 
@@ -54,16 +65,12 @@ public class Table {
             for (int i = 0; i < NUMS_COLUMNS; i++) {
                 PdfPCell cell = new PdfPCell();
                 cell.setBorderWidth(2);
-                cell.setVerticalAlignment(1);
-                cell.setHorizontalAlignment(1);
-                cell.setPadding(15);
+                cell.setPadding(10);
                 cell.setPhrase(new Phrase(cellsNames.get(i), COLS_FONT));
                 table.addCell(cell);
             }
         }
     }
 
-    public PdfPTable getTable() {
-        return this.table;
-    }
+
 }

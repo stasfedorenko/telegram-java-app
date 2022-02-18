@@ -1,12 +1,14 @@
 package by.stasfedorenko.bots;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.File;
 
@@ -41,7 +43,9 @@ public class MyBot extends TelegramLongPollingBot {
         }
     }
 
-    public void execute(String basePath) throws TelegramApiException {
+    public void sendReports(String basePath) throws TelegramApiException {
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+        telegramBotsApi.registerBot(this);
         String PATH = basePath + "reports.pdf";
         this.execute(SendMessage.builder().chatId(CHAT_ID).text("Hi, this is our reports list").build());
         this.execute(SendDocument.builder().chatId(CHAT_ID).document(new InputFile(new File(PATH))).build());
