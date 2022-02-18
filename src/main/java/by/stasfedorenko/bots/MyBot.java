@@ -47,8 +47,8 @@ public class MyBot extends TelegramLongPollingBot {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         telegramBotsApi.registerBot(this);
         String PATH = basePath + "reports.pdf";
-        this.execute(SendMessage.builder().chatId(CHAT_ID_MY).text("Hi, this is our reports list").build());
-        this.execute(SendDocument.builder().chatId(CHAT_ID_MY).document(new InputFile(new File(PATH))).build());
+//        this.execute(SendMessage.builder().chatId(CHAT_ID_MY).text("Hi, this is our reports list").build());
+//        this.execute(SendDocument.builder().chatId(CHAT_ID_MY).document(new InputFile(new File(PATH))).build());
         this.execute(SendMessage.builder().chatId(CHAT_ID_YRA).text("Hi, this is our reports list").build());
         this.execute(SendDocument.builder().chatId(CHAT_ID_YRA).document(new InputFile(new File(PATH))).build());
     }
