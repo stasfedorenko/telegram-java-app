@@ -25,7 +25,6 @@ public class Controller extends HttpServlet {
         processRequest(req, resp);
     }
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
@@ -48,7 +47,6 @@ public class Controller extends HttpServlet {
                 break;
             default:
                 logger.error("incorrect route type " + router.getRouterType());
-                System.out.println(logger);
                 response.sendRedirect(PagePath.ERROR_PAGE);
         }
     }

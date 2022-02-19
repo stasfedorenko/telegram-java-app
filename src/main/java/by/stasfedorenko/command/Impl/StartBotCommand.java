@@ -16,7 +16,7 @@ public class StartBotCommand implements Command {
         BotService serviceBot = new BotServiceImpl();
         try {
             serviceBot.runBot(path);
-            router = new Router(PagePath.INDEX, Router.RouterType.REDIRECT);
+            router = new Router(PagePath.INDEX_PAGE, Router.RouterType.REDIRECT);
         } catch (ServiceException e) {
             logger.error("Some problems with Bot ", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class PdfServiceImpl implements PdfService {
+public class PdfServiceImpl implements PdfService, Runnable{
     private PdfPTable table;
     private static final Font DOCUMENT_TITLE_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 20,Font.BOLD);
     private static final String[] HEADERS_NAMES = new String[]{"REPORT TITLE", "REPORT", "LABOR COST"};
@@ -94,4 +94,13 @@ public class PdfServiceImpl implements PdfService {
         }
     }
 
+    public Runnable run(String path) throws ServiceException {
+        createPdf(path);
+        return null;
+    }
+
+    @Override
+    public void run() {
+
+    }
 }

@@ -2,6 +2,7 @@ package by.stasfedorenko.command;
 
 import by.stasfedorenko.command.Impl.CreatePdfCommand;
 import by.stasfedorenko.command.Impl.DefaultCommand;
+import by.stasfedorenko.command.Impl.RunCommand;
 import by.stasfedorenko.command.Impl.StartBotCommand;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public class CommandProvider {
         repository.put(CommandName.CREATE_PDF, new CreatePdfCommand());
         repository.put(CommandName.DEFAULT, new DefaultCommand());
         repository.put(CommandName.START_BOT, new StartBotCommand());
+        repository.put(CommandName.RUN, new RunCommand());
     }
 
     public Command getCommand(String name) {
