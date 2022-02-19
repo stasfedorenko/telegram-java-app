@@ -19,7 +19,7 @@ public class CreatePdfCommand implements Command {
 
         try {
             pdfService.createPdf(path);
-            router = new Router(PagePath.GO_TO_START_BOT, Router.RouterType.REDIRECT);
+            router = new Router(PagePath.GO_TO_START_BOT, Router.RouterType.FORWARD);
         } catch (ServiceException e) {
             logger.error("Error at CreatePdfCommand", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
