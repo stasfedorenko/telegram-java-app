@@ -1,13 +1,14 @@
 package by.stasfedorenko.service.impl;
 
-import by.stasfedorenko.service.ServiceTable;
+import by.stasfedorenko.exception.ServiceException;
+import by.stasfedorenko.service.PdfService;
 import by.stasfedorenko.util.ParserJSON;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Phrase;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,29 +16,42 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class ServiceTableImpl implements ServiceTable {
-    private PdfPTable table;
+public class PdfServiceImpl implements PdfService {
+
+    private static final Font DOCUMENT_TITLE_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 20);
     private static final String[] HEADERS_NAMES = new String[]{"NAME", "REPORT TITLE", "REPORT", "LABOR COST"};
     private static final int NUMS_COLUMNS = HEADERS_NAMES.length;
     private static final Font HEADER_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
     private static final Font COLS_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 14);
 
     @Override
-    public void createTable() throws IOException {
+    public void createPdf(String basePath) throws ServiceException {
+        if (basePath.isEmpty()) {
+            throw new ServiceException("The path to Pdf is empty");
+        }
+        Document document = new Document();
+        try {
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(basePath + "reports.pdf"));
+            document.open();
+            document.add(new Paragraph("Hi, we are Yellow command.\nThis are reports about our workday!\n\n", DOCUMENT_TITLE_FONT));
+            document.add(createTable());
+            document.close();
+            writer.close();
+        } catch (DocumentException | IOException e) {
+            throw new ServiceException("Some problems with create Pdf",e);
+        }
+    }
+
+    public PdfPTable createTable() throws IOException {
         Map<String[], String[]> map = ParserJSON.execute();
-        table = new PdfPTable(NUMS_COLUMNS);
-        createHeader();
-        createBody(map);
+        PdfPTable table = new PdfPTable(NUMS_COLUMNS);
+        createHeader(table);
+        createBody(map, table);
         table.setWidthPercentage(100);
+        return table;
     }
 
-    @Override
-    public PdfPTable getTable() {
-        return this.table;
-    }
-
-    @Override
-    public void createHeader() {
+    public void createHeader(PdfPTable table) {
         Stream.of(HEADERS_NAMES)
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
@@ -51,8 +65,7 @@ public class ServiceTableImpl implements ServiceTable {
                 });
     }
 
-    @Override
-    public void createBody(Map<String[], String[]> map) {
+    public void createBody(Map<String[], String[]> map, PdfPTable table) {
         Collection<String[]> keys = map.keySet();
 
         for (String[] key : keys) {
@@ -71,6 +84,4 @@ public class ServiceTableImpl implements ServiceTable {
             }
         }
     }
-
-
 }

@@ -5,9 +5,13 @@
 		http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          id="WebApp_ID" version="3.1">
     <display-name>telegram-java-app</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
     <servlet>
         <servlet-name>Servlet</servlet-name>
-        <servlet-class>by.stasfedorenko.servlet.Servlet</servlet-class>
+        <servlet-class>by.stasfedorenko.controller.Controller</servlet-class>
     </servlet>
 
     <context-param>
@@ -19,5 +23,8 @@
         <servlet-name>Servlet</servlet-name>
         <url-pattern>/run</url-pattern>
     </servlet-mapping>
-
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
 </web-app>
