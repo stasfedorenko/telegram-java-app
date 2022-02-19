@@ -4,14 +4,11 @@ import by.stasfedorenko.entity.ReportDTO;
 import by.stasfedorenko.entity.UserDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,46 +31,11 @@ public class ParserJSON {
             jsonText = jsonText.substring(jsonText.indexOf("<body>"),jsonText.indexOf("</body>"));
             jsonText = jsonText.substring(jsonText.indexOf("["));
             jsonText = jsonText.replaceAll("&#034;","\"");
-            Map<UserDTO, List<ReportDTO>> map = gson.fromJson(jsonText, new TypeToken<Map<UserDTO, List<ReportDTO>>>(){}.getType());
-            return map;
+            return gson.fromJson(jsonText, new TypeToken<Map<UserDTO, List<ReportDTO>>>(){}.getType());
         }
     }
 
     public static Map<UserDTO, List<ReportDTO>> getJSON() throws IOException {
         return (readJsonFromUrl("http://34.127.16.38:8080/main-java-app/apply?command=get_json_reports"));
     }
-
-
-//    public static Map<String[], String[]> execute() throws IOException {
-//        JSONArray jsonArray = new JSONArray(getJSON());
-//        List<JSONArray> jsonArrayList = new ArrayList<>();
-//        Map<String[], String[]> map = new LinkedHashMap<>();
-//
-//        String[] listKeys;
-//        String[] listValues;
-//
-//        for (int i = 0; i < jsonArray.length(); i++) {
-//            jsonArrayList.add(jsonArray.getJSONArray(i));
-//        }
-//
-//        for (JSONArray objects : jsonArrayList) {
-//            listKeys = new String[2];
-//            listValues = new String[3];
-//            if (objects.getJSONObject(0).length()>0) {
-//                listKeys[0] = objects.getJSONObject(0).getString("firstName");
-//                listKeys[1] = objects.getJSONObject(0).getString("lastName");
-//            }
-//            if (objects.getJSONArray(1).length()>0) {
-//                listValues[0] = objects.getJSONArray(1)
-//                        .getJSONObject(0).getString("reportTitle");
-//                listValues[1] = objects.getJSONArray(1)
-//                        .getJSONObject(0).getString("reportBody");
-//                listValues[2] = String.valueOf(objects.getJSONArray(1)
-//                        .getJSONObject(0).getInt("laborCost"));
-//            }
-//            map.put(listKeys, listValues);
-//        }
-//        return map;
-//    }
-
 }
