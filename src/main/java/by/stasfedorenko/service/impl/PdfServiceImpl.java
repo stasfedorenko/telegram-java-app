@@ -1,5 +1,7 @@
 package by.stasfedorenko.service.impl;
 
+import by.stasfedorenko.entity.ReportDTO;
+import by.stasfedorenko.entity.UserDTO;
 import by.stasfedorenko.exception.ServiceException;
 import by.stasfedorenko.service.PdfService;
 import by.stasfedorenko.util.ParserJSON;
@@ -10,18 +12,17 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 public class PdfServiceImpl implements PdfService {
-
-    private static final Font DOCUMENT_TITLE_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 20);
-    private static final String[] HEADERS_NAMES = new String[]{"NAME", "REPORT TITLE", "REPORT", "LABOR COST"};
+    private PdfPTable table;
+    private static final Font DOCUMENT_TITLE_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 20,Font.BOLD);
+    private static final String[] HEADERS_NAMES = new String[]{"REPORT TITLE", "REPORT", "LABOR COST"};
     private static final int NUMS_COLUMNS = HEADERS_NAMES.length;
     private static final Font HEADER_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
+    private static final Font USER_NAME_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
     private static final Font COLS_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 14);
 
     @Override
@@ -43,15 +44,17 @@ public class PdfServiceImpl implements PdfService {
     }
 
     public PdfPTable createTable() throws IOException {
-        Map<String[], String[]> map = ParserJSON.execute();
-        PdfPTable table = new PdfPTable(NUMS_COLUMNS);
-        createHeader(table);
-        createBody(map, table);
+        Map<UserDTO, List<ReportDTO>> map = ParserJSON.getJSON();
+        table = new PdfPTable(NUMS_COLUMNS);
+        table.setHorizontalAlignment(10);
+        table.setSpacingBefore(20);
         table.setWidthPercentage(100);
+        createHeader();
+        createBody(map);
         return table;
     }
 
-    public void createHeader(PdfPTable table) {
+    public void createHeader() {
         Stream.of(HEADERS_NAMES)
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
@@ -64,24 +67,31 @@ public class PdfServiceImpl implements PdfService {
                     table.addCell(header);
                 });
     }
-
-    public void createBody(Map<String[], String[]> map, PdfPTable table) {
-        Collection<String[]> keys = map.keySet();
-
-        for (String[] key : keys) {
-            List<String> cellsNames = new ArrayList<>();
-            cellsNames.add(key[0] + " " + key[1]);
-            cellsNames.add(map.get(key)[0]);
-            cellsNames.add(map.get(key)[1]);
-            cellsNames.add(map.get(key)[2]);
-
-            for (int i = 0; i < NUMS_COLUMNS; i++) {
-                PdfPCell cell = new PdfPCell();
-                cell.setBorderWidth(2);
-                cell.setPadding(10);
-                cell.setPhrase(new Phrase(cellsNames.get(i), COLS_FONT));
-                table.addCell(cell);
-            }
+    public void createBody(Map<UserDTO, List<ReportDTO>> map) {
+        for (UserDTO user: map.keySet()) {
+            PdfPCell userNameCell = new PdfPCell();
+            userNameCell.setColspan(3);
+            userNameCell.setBorderWidth(2);
+            userNameCell.setPadding(15);
+            userNameCell.setBackgroundColor(BaseColor.YELLOW);
+            userNameCell.setPhrase(new Phrase(user.getFirstName() + " " + user.getLastName(), USER_NAME_FONT));
+            table.addCell(userNameCell);
+            List<ReportDTO> reports = map.get(user);
+            fillCellsForCurrentReport(reports);
         }
     }
+    private void fillCellsForCurrentReport(List<ReportDTO> reports){
+        PdfPCell cell = new PdfPCell();
+        cell.setBorderWidth(2);
+        cell.setPadding(15);
+        for (ReportDTO reportDTO : reports) {
+            cell.setPhrase(new Phrase(reportDTO.getReportTitle(), COLS_FONT));
+            table.addCell(cell);
+            cell.setPhrase(new Phrase(reportDTO.getReportBody(), COLS_FONT));
+            table.addCell(cell);
+            cell.setPhrase(new Phrase(String.valueOf(reportDTO.getLaborCost()), COLS_FONT));
+            table.addCell(cell);
+        }
+    }
+
 }
