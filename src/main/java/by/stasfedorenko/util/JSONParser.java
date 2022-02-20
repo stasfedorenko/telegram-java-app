@@ -5,7 +5,6 @@ import by.stasfedorenko.entity.UserDTO;
 import by.stasfedorenko.exception.ConnectException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.json.JSONException;
 
 import java.io.*;
 import java.net.URL;
@@ -25,7 +24,7 @@ public class JSONParser {
         return sb.toString();
     }
 
-    public static Map<UserDTO, List<ReportDTO>> readJsonFromUrl(String url) throws JSONException, ConnectException {
+    public static Map<UserDTO, List<ReportDTO>> readJsonFromUrl(String url) throws IOException {
         try (InputStream is = new URL(url).openStream()) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
@@ -34,12 +33,10 @@ public class JSONParser {
             jsonText = jsonText.replaceAll("&#034;", "\"");
             return gson.fromJson(jsonText, new TypeToken<Map<UserDTO, List<ReportDTO>>>() {
             }.getType());
-        }catch (Exception e){
-            throw new ConnectException("Some problems with connect to Server",e);
         }
     }
 
-    public static Map<UserDTO, List<ReportDTO>> getJSON() throws ConnectException {
+    public static Map<UserDTO, List<ReportDTO>> getJSON() throws ConnectException, IOException {
         return (readJsonFromUrl("http://34.127.16.38:8080/main-java-app/apply?command=get_json_reports"));
     }
 }
