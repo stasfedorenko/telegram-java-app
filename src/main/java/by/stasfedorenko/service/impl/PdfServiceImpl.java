@@ -2,7 +2,6 @@ package by.stasfedorenko.service.impl;
 
 import by.stasfedorenko.entity.ReportDTO;
 import by.stasfedorenko.entity.UserDTO;
-import by.stasfedorenko.exception.ConnectException;
 import by.stasfedorenko.exception.ServiceException;
 import by.stasfedorenko.service.PdfService;
 import by.stasfedorenko.util.JSONParser;
@@ -44,13 +43,9 @@ public class PdfServiceImpl implements PdfService {
         }
     }
 
-    private PdfPTable createTable() throws IOException, ServiceException {
+    private PdfPTable createTable() throws IOException {
         Map<UserDTO, List<ReportDTO>> map;
-        try {
-            map = JSONParser.getJSON();
-        } catch (ConnectException e) {
-            throw new ServiceException("Unable to get data from json",e);
-        }
+        map = JSONParser.getJSON();
         table = new PdfPTable(NUMS_COLUMNS);
         table.setHorizontalAlignment(10);
         table.setSpacingBefore(20);
