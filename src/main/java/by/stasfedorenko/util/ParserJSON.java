@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ParserJSON {
-    private  static final Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -28,10 +28,11 @@ public class ParserJSON {
         try (InputStream is = new URL(url).openStream()) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
-            jsonText = jsonText.substring(jsonText.indexOf("<body>"),jsonText.indexOf("</body>"));
+            jsonText = jsonText.substring(jsonText.indexOf("<body>"), jsonText.indexOf("</body>"));
             jsonText = jsonText.substring(jsonText.indexOf("["));
-            jsonText = jsonText.replaceAll("&#034;","\"");
-            return gson.fromJson(jsonText, new TypeToken<Map<UserDTO, List<ReportDTO>>>(){}.getType());
+            jsonText = jsonText.replaceAll("&#034;", "\"");
+            return gson.fromJson(jsonText, new TypeToken<Map<UserDTO, List<ReportDTO>>>() {
+            }.getType());
         }
     }
 

@@ -17,6 +17,4 @@ public final class DocFactory {
     public PdfService getServicePdf() {
         return servicePdf;
     }
-
-
 }

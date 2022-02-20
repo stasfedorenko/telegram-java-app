@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class PdfServiceImpl implements PdfService, Runnable{
+public class PdfServiceImpl implements PdfService {
     private PdfPTable table;
-    private static final Font DOCUMENT_TITLE_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 20,Font.BOLD);
+    private static final Font DOCUMENT_TITLE_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
     private static final String[] HEADERS_NAMES = new String[]{"REPORT TITLE", "REPORT", "LABOR COST"};
     private static final int NUMS_COLUMNS = HEADERS_NAMES.length;
     private static final Font HEADER_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
@@ -39,11 +39,11 @@ public class PdfServiceImpl implements PdfService, Runnable{
             document.close();
             writer.close();
         } catch (DocumentException | IOException e) {
-            throw new ServiceException("Some problems with create Pdf",e);
+            throw new ServiceException("Some problems with create Pdf", e);
         }
     }
 
-    public PdfPTable createTable() throws IOException {
+    private PdfPTable createTable() throws IOException {
         Map<UserDTO, List<ReportDTO>> map = ParserJSON.getJSON();
         table = new PdfPTable(NUMS_COLUMNS);
         table.setHorizontalAlignment(10);
@@ -54,7 +54,7 @@ public class PdfServiceImpl implements PdfService, Runnable{
         return table;
     }
 
-    public void createHeader() {
+    private void createHeader() {
         Stream.of(HEADERS_NAMES)
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
@@ -67,8 +67,9 @@ public class PdfServiceImpl implements PdfService, Runnable{
                     table.addCell(header);
                 });
     }
-    public void createBody(Map<UserDTO, List<ReportDTO>> map) {
-        for (UserDTO user: map.keySet()) {
+
+    private void createBody(Map<UserDTO, List<ReportDTO>> map) {
+        for (UserDTO user : map.keySet()) {
             PdfPCell userNameCell = new PdfPCell();
             userNameCell.setColspan(3);
             userNameCell.setBorderWidth(2);
@@ -80,7 +81,8 @@ public class PdfServiceImpl implements PdfService, Runnable{
             fillCellsForCurrentReport(reports);
         }
     }
-    private void fillCellsForCurrentReport(List<ReportDTO> reports){
+
+    private void fillCellsForCurrentReport(List<ReportDTO> reports) {
         PdfPCell cell = new PdfPCell();
         cell.setBorderWidth(2);
         cell.setPadding(15);
@@ -94,13 +96,4 @@ public class PdfServiceImpl implements PdfService, Runnable{
         }
     }
 
-    public Runnable run(String path) throws ServiceException {
-        createPdf(path);
-        return null;
-    }
-
-    @Override
-    public void run() {
-
-    }
 }

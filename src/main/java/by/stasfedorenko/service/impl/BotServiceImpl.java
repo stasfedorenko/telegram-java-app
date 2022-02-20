@@ -5,8 +5,7 @@ import by.stasfedorenko.exception.ServiceException;
 import by.stasfedorenko.service.BotService;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class BotServiceImpl implements BotService, Runnable {
-
+public class BotServiceImpl implements BotService {
 
     @Override
     public void runBot(String basePath) throws ServiceException {
@@ -24,14 +23,5 @@ public class BotServiceImpl implements BotService, Runnable {
         } catch (TelegramApiException e) {
             throw new ServiceException("Bot didn't send message", e);
         }
-    }
-
-    public Runnable run(String path) throws ServiceException {
-        runBot(path);
-        return null;
-    }
-
-    @Override
-    public void run() {
     }
 }

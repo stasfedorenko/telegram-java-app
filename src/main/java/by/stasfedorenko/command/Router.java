@@ -12,7 +12,6 @@ public final class Router {
     public Router(String pagePath, RouterType routerType) {
         this.pagePath = pagePath;
         this.routerType = routerType;
-
     }
 
     public String getPagePath() {

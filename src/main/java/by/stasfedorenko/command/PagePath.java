@@ -12,6 +12,4 @@ public final class PagePath{
 
     private PagePath() {
     }
-
-
 }
