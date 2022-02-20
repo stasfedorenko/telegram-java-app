@@ -14,7 +14,7 @@ import java.io.File;
 
 public class MyBot extends TelegramLongPollingBot {
     private static final String CHAT_ID_MY = "798726464";
-//    private static final String CHAT_ID_YRA = "313204287"; // Yra telega chat_id
+    private static final String CHAT_ID_YRA = "313204287"; // Yra telega chat_id
     //    private static final String CHAT_ID_OLEG_AKULOV = "496687309";
     private static MyBot instance;
 
@@ -63,7 +63,7 @@ public class MyBot extends TelegramLongPollingBot {
 //        this.execute(SendDocument.builder().chatId(CHAT_ID_OLEG_AKULOV).document(new InputFile(new File(PATH))).build());
         this.execute(SendMessage.builder().chatId(CHAT_ID_MY).text("Hi, this is our reports list").build());
         this.execute(SendDocument.builder().chatId(CHAT_ID_MY).document(new InputFile(new File(PATH))).build());
-//        this.execute(SendMessage.builder().chatId(CHAT_ID_YRA).text("Hi, this is our reports list").build());
-//        this.execute(SendDocument.builder().chatId(CHAT_ID_YRA).document(new InputFile(new File(PATH))).build());
+        this.execute(SendMessage.builder().chatId(CHAT_ID_YRA).text("Hi, this is our reports list").build());
+        this.execute(SendDocument.builder().chatId(CHAT_ID_YRA).document(new InputFile(new File(PATH))).build());
     }
 }
