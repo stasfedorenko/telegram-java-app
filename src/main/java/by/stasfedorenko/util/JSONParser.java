@@ -36,6 +36,6 @@ public class JSONParser {
     }
 
     public static Map<UserDTO, List<ReportDTO>> getJSON() throws IOException {
-        return (readJsonFromUrl("http://34.127.16.38:8080/main-java-app/apply?command=get_json_reports"));
+        return (readJsonFromUrl("http://35.230.57.225:8080/main-java-app/apply?command=get_json_reports"));
     }
 }

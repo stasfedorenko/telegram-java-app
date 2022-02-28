@@ -10,17 +10,14 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>Servlet</servlet-name>
+        <servlet-name>Controller</servlet-name>
         <servlet-class>by.stasfedorenko.controller.Controller</servlet-class>
     </servlet>
 
-    <context-param>
-        <param-name>uploadFilesPath</param-name>
-        <param-value>/src/main/resources/docs</param-value>
-    </context-param>
+
 
     <servlet-mapping>
-        <servlet-name>Servlet</servlet-name>
+        <servlet-name>Controller</servlet-name>
         <url-pattern>/run</url-pattern>
     </servlet-mapping>
     <error-page>
