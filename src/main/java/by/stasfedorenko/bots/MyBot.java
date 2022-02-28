@@ -15,7 +15,7 @@ import java.io.File;
 public class MyBot extends TelegramLongPollingBot {
     private static final String CHAT_ID_MY = "798726464";
     private static final String CHAT_ID_ALEXEY = "811344357";
-    private static final String CHAT_ID_YRA = "313204287"; // Yra telega chat_id
+     private static final String CHAT_ID_YRA = "313204287"; // Yra telega chat_id
     //    private static final String CHAT_ID_OLEG_AKULOV = "496687309";
     private static MyBot instance;
 
